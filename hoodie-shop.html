@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoodie Haven - Shop Hoodies</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .header_section {
+            background-color: #007bff;
+        }
+
+        .cart-section {
+            margin-top: 30px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-item button {
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Floating button styles */
+        .floating-cart-btn,
+        .floating-social-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 50%;
+            padding: 20px;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .floating-cart-btn:hover,
+        .floating-social-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .social-media-icons {
+            display: none;
+            position: fixed;
+            bottom: 70px;
+            right: 20px;
+            background-color: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+        }
+
+        .social-media-icons a {
+            display: block;
+            margin-bottom: 10px;
+            text-decoration: none;
+            font-size: 20px;
+            color: #007bff;
+        }
+
+        .social-media-icons a:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header class="header_section">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a class="navbar-brand" href="index.html"><img src="images/logo-hoodie.png" alt="Hoodie Haven Logo"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"
+                    aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="hoodie-shop.html">Hoodies</a>
+                        </li>
+                        <li class="nav-item">
+                                Cart <span id="cartCount" class="badge badge-danger">0</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Filter Section -->
+    <section class="filter-section container py-4">
+        <h3 class="text-center mb-4">Find Your Perfect Hoodie</h3>
+        <form id="filterForm" class="row">
+            <div class="col-md-6 mb-3">
+                <label for="colorSelect" class="form-label">Choose Color:</label>
+                <select class="form-control" id="colorSelect" onchange="filterProducts()">
+                    <option value="">All Colors</option>
+                    <option value="black">Black</option>
+                    <option value="red">Red</option>
+                    <option value="grey">Grey</option>
+                    <option value="blue">Blue</option>
+                    <option value="green">Green</option>
+                    <option value="white">White</option>
+                </select>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="sizeSelect" class="form-label">Choose Size:</label>
+                <select class="form-control" id="sizeSelect" onchange="filterProducts()">
+                    <option value="">All Sizes</option>
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                    <option value="xl">XL</option>
+                </select>
+            </div>
+        </form>
+    </section>
+
+    <!-- Hoodie Sales Section -->
+    <section class="shop-section py-4">
+        <div class="container">
+            <div class="row" id="productList">
+                <!-- Hoodie Item 1 -->
+                <div class="col-md-4 hoodie-item mb-4" data-color="black" data-size="large">
+                    <div class="card h-100">
+                        <div id="productCarousel1" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="images/hoodie1_black.jpg.jpg" class="d-block w-100" alt="Classic Black Hoodie">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="images/hoodie1_black.jpg.jpg" class="d-block w-100" alt="Classic Black Hoodie">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="images/hoodie1_black.jpg.jpg" class="d-block w-100" alt="Classic Black Hoodie">
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel1" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel1" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Classic Black Hoodie</h5>
+                            <p class="card-text">KSH 4,999 - Large</p>
+                            <button class="btn btn-primary" onclick="addToCart('Classic Black Hoodie', 4999)">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Hoodie Item 1 -->
+<div class="col-md-4 hoodie-item mb-4" data-color="red" data-size="medium">
+    <div class="card h-100">
+        <div id="productCarousel1" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="images/hoodie1_red.jpg.jpg" class="d-block w-100" alt="Red Hoodie">
+                </div>
+                <div class="carousel-item">
+                    <img src="images/hoodie1_red.jpg.jpg" class="d-block w-100" alt="Red Hoodie">
+                </div>
+                <div class="carousel-item">
+                    <img src="images/hoodie1_red.jpg.jpg" class="d-block w-100" alt="Red Hoodie">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel1" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel1" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <div class="card-body text-center">
+            <h5 class="card-title">Red Hoodie</h5>
+            <p class="card-text">KSH 4,499 - Medium</p>
+            <button class="btn btn-primary" onclick="addToCart('Red Hoodie', 4499)">Add to Cart</button>
+        </div>
+    </div>
+</div>
+
+<!-- Hoodie Item 2 -->
+<div class="col-md-4 hoodie-item mb-4" data-color="grey" data-size="small">
+    <div class="card h-100">
+        <div id="productCarousel2" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="images/hoodie2_grey.jpg.jpg" class="d-block w-100" alt="Grey Hoodie">
+                </div>
+                <div class="carousel-item">
+                    <img src="images/hoodie2_grey.jpg.jpg" class="d-block w-100" alt="Grey Hoodie">
+                </div>
+                <div class="carousel-item">
+                    <img src="images/hoodie2_grey.jpg.jpg" class="d-block w-100" alt="Grey Hoodie">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel2" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel2" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <div class="card-body text-center">
+            <h5 class="card-title">Classic Grey Hoodie</h5>
+            <p class="card-text">KSH 4,999 - Small</p>
+            <button class="btn btn-primary" onclick="addToCart('Classic Grey Hoodie', 4999)">Add to Cart</button>
+        </div>
+    </div>
+</div>
+
+<!-- Hoodie Item 3 -->
+<div class="col-md-4 hoodie-item mb-4" data-color="blue" data-size="xl">
+    <div class="card h-100">
+        <div id="productCarousel3" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="images/hoodie3_blue.jpg.jpg" class="d-block w-100" alt="Blue Hoodie">
+                </div>
+                <div class="carousel-item">
+                    <img src="images/hoodie3_blue.jpg.jpg" class="d-block w-100" alt="Blue Hoodie">
+                </div>
+                <div class="carousel-item">
+                    <img src="images/hoodie3_blue.jpg.jpg" class="d-block w-100" alt="Blue Hoodie">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel3" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel3" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <div class="card-body text-center">
+            <h5 class="card-title">Cool Blue Hoodie</h5>
+            <p class="card-text">KSH 5,499 - XL</p>
+            <button class="btn btn-primary" onclick="addToCart('Cool Blue Hoodie', 5499)">Add to Cart</button>
+        </div>
+    </div>
+</div>
+
+<!-- Hoodie Item 4 -->
+<div class="col-md-4 hoodie-item mb-4" data-color="green" data-size="medium">
+    <div class="card h-100">
+        <div id="productCarousel4" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="images/hoodie4_green.jpg.jpg" class="d-block w-100" alt="Green Hoodie">
+                </div>
+                <div class="carousel-item">
+                    <img src="images/hoodie4_green.jpg.jpg" class="d-block w-100" alt="Green Hoodie">
+                </div>
+                <div class="carousel-item">
+                    <img src="images/hoodie4_green.jpg.jpg" class="d-block w-100" alt="Green Hoodie">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel4" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel4" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <div class="card-body text-center">
+            <h5 class="card-title">Stylish Green Hoodie</h5>
+            <p class="card-text">KSH 4,999 - Medium</p>
+            <button class="btn btn-primary" onclick="addToCart('Stylish Green Hoodie', 4999)">Add to Cart</button>
+        </div>
+    </div>
+</div>
+
+<!-- Hoodie Item 5 -->
+<div class="col-md-4 hoodie-item mb-4" data-color="white" data-size="large">
+    <div class="card h-100">
+        <div id="productCarousel5" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="images/hoodie5_white.jpg.jpg" class="d-block w-100" alt="White Hoodie">
+                </div>
+                <div class="carousel-item">
+                    <img src="images/hoodie5_white.jpg.jpg" class="d-block w-100" alt="White Hoodie">
+                </div>
+                <div class="carousel-item">
+                    <img src="images/hoodie5_white.jpg.jpg" class="d-block w-100" alt="White Hoodie">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel5" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel5" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <div class="card-body text-center">
+            <h5 class="card-title">Classic White Hoodie</h5>
+            <p class="card-text">KSH 4,499 - Large</p>
+            <button class="btn btn-primary" onclick="addToCart('Classic White Hoodie', 4499)">Add to Cart</button>
+        </div>
+    </div>
+</div>
+
+<!-- Hoodie Item 6 -->
+<div class="col-md-4 hoodie-item mb-4" data-color="yellow" data-size="xl">
+    <div class="card h-100">
+        <div id="productCarousel6" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="images/hoodie6_yellow.jpg.jpg" class="d-block w-100" alt="Yellow Hoodie">
+                </div>
+                <div class="carousel-item">
+                    <img src="images/hoodie6_yellow.jpg.jpg" class="d-block w-100" alt="Yellow Hoodie">
+                </div>
+                <div class="carousel-item">
+                    <img src="images/hoodie6_yellow.jpg.jpg" class="d-block w-100" alt="Yellow Hoodie">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel6" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel6" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <div class="card-body text-center">
+            <h5 class="card-title">Bright Yellow Hoodie</h5>
+            <p class="card-text">KSH 4,799 - XL</p>
+            <button class="btn btn-primary" onclick="addToCart('Bright Yellow Hoodie', 4799)">Add to Cart</button>
+        </div>
+    </div>
+</div>
+
+<!-- Hoodie Item 7 -->
+<div class="col-md-4 hoodie-item mb-4" data-color="purple" data-size="medium">
+    <div class="card h-100">
+        <div id="productCarousel7" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="images/hoodie7_purple.jpg.jpg" class="d-block w-100" alt="Purple Hoodie">
+                </div>
+                <div class="carousel-item">
+                    <img src="images/hoodie7_purple.jpg.jpg" class="d-block w-100" alt="Purple Hoodie">
+                </div>
+                <div class="carousel-item">
+                    <img src="images/hoodie7_purple.jpg.jpg" class="d-block w-100" alt="Purple Hoodie">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel7" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel7" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <div class="card-body text-center">
+            <h5 class="card-title">Purple Hoodie</h5>
+            <p class="card-text">KSH 4,599 - Medium</p>
+            <button class="btn btn-primary" onclick="addToCart('Purple Hoodie', 4599)">Add to Cart</button>
+        </div>
+    </div>
+</div>
+
+<!-- Hoodie Item 8 -->
+<div class="col-md-4 hoodie-item mb-4" data-color="brown" data-size="large">
+    <div class="card h-100">
+        <div id="productCarousel8" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="images/hoodie8_maroon.jpg.jpg" class="d-block w-100" alt="Maroon Hoodie">
+                </div>
+                <div class="carousel-item">
+                    <img src="images/hoodie8_maroon.jpg.jpg" class="d-block w-100" alt="Maroon Hoodie">
+                </div>
+                <div class="carousel-item">
+                    <img src="images/hoodie8_Maroon.jpg.jpg" class="d-block w-100" alt="Maroon Hoodie">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel8" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel8" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <div class="card-body text-center">
+            <h5 class="card-title">Stylish Brown Hoodie</h5>
+            <p class="card-text">KSH 5,499 - Large</p>
+            <button class="btn btn-primary" onclick="addToCart('Stylish Brown Hoodie', 5499)">Add to Cart</button>
+        </div>
+    </div>
+</div>
+
+<!-- Hoodie Item 9 -->
+<div class="col-md-4 hoodie-item mb-4" data-color="teal" data-size="small">
+    <div class="card h-100">
+        <div id="productCarousel9" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="images/hoodie9_teal.jpg.jpg" class="d-block w-100" alt="Teal Hoodie">
+                </div>
+                <div class="carousel-item">
+                    <img src="images/hoodie9_teal.jpg.jpg" class="d-block w-100" alt="Teal Hoodie">
+                </div>
+                <div class="carousel-item">
+                    <img src="images/hoodie9_teal.jpg.jpg" class="d-block w-100" alt="Teal Hoodie">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel9" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel9" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <div class="card-body text-center">
+            <h5 class="card-title">Teal Hoodie</h5>
+            <p class="card-text">KSH 5,299 - Small</p>
+            <button class="btn btn-primary" onclick="addToCart('Teal Hoodie', 5299)">Add to Cart</button>
+        </div>
+    </div>
+</div>
+
+<!-- Hoodie Item 10 -->
+<div class="col-md-4 hoodie-item mb-4" data-color="pink" data-size="xl">
+    <div class="card h-100">
+        <div id="productCarousel10" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="images/hoodie10_pink.jpg.jpg" class="d-block w-100" alt="Pink Hoodie">
+                </div>
+                <div class="carousel-item">
+                    <img src="images/hoodie10_pink.jpg.jpg" class="d-block w-100" alt="Pink Hoodie">
+                </div>
+                <div class="carousel-item">
+                    <img src="images/hoodie10_pink.jpg.jpg" class="d-block w-100" alt="Pink Hoodie">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel10" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel10" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <div class="card-body text-center">
+            <h5 class="card-title">Pink Hoodie</h5>
+            <p class="card-text">KSH 5,199 - XL</p>
+            <button class="btn btn-primary" onclick="addToCart('Pink Hoodie', 5199)">Add to Cart</button>
+        </div>
+    </div>
+</div>
+     <!-- Add 7 more items below with similar structure -->
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Section -->
+    <section class="cart-section container">
+        <h3 class="text-center mb-4">Your Cart</h3>
+        <div id="cartItems"></div>
+        <div class="d-flex justify-content-between align-items-center">
+            <p><strong>Total:</strong> KSH <span id="totalPrice">0</span></p>
+            <button class="btn btn-success" onclick="checkout()">Proceed to Checkout</button>
+        </div>
+    </section>
+
+    <!-- Floating Cart Button -->
+    <button class="floating-cart-btn" onclick="checkout()">🛒</button>
+
+    <!-- Floating Social Media Button -->
+    <button class="floating-social-btn" onclick="toggleSocialMedia()">🌐</button>
+
+    <!-- Social Media Icons Popup -->
+    <div class="social-media-icons" id="socialMediaIcons">
+        <a href="https://wa.me/254701234567" target="_blank">WhatsApp</a>
+        <a href="https://www.instagram.com/yourprofile" target="_blank">Instagram</a>
+        <a href="https://www.facebook.com/yourprofile" target="_blank">Facebook</a>
+        <a href="https://t.me/yourprofile" target="_blank">Telegram</a>
+    </div>
+
+    <!-- Checkout Popup -->
+    <div class="checkout-popup" id="checkoutPopup">
+        <h3>Checkout</h3>
+        <p>Total: KSH <span id="checkoutTotal">0</span></p>
+
+        <div class="payment-methods">
+            <label for="paymentMethod">Select Payment Method:</label>
+            <select id="paymentMethod" class="form-control" onchange="togglePaymentFields()">
+                <option value="mpesa">M-Pesa</option>
+                <option value="card">Credit/Debit Card</option>
+            </select>
+
+            <div id="mpesaSection" class="payment-section">
+                <label for="mpesaNumber">Enter M-Pesa Number:</label>
+                <input type="text" id="mpesaNumber" placeholder="Enter your M-Pesa number" class="form-control">
+            </div>
+
+            <div id="cardSection" class="payment-section" style="display: none;">
+                <label for="cardNumber">Enter Card Number:</label>
+                <input type="text" id="cardNumber" placeholder="Enter your card number" class="form-control">
+            </div>
+
+            <button onclick="completeCheckout()" class="btn btn-primary">Complete Payment</button>
+        </div>
+    </div>
+
+    <script>
+        let cart = [];
+        let totalAmount = 0;
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            totalAmount += price;
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartItemsDiv = document.getElementById('cartItems');
+            cartItemsDiv.innerHTML = '';  // Clear existing items
+            cart.forEach(item => {
+                const div = document.createElement('div');
+                div.classList.add('cart-item');
+                div.innerHTML = `${item.name} - KSH ${item.price} <button onclick="removeFromCart('${item.name}')">Remove</button>`;
+                cartItemsDiv.appendChild(div);
+            });
+            document.getElementById('totalPrice').textContent = totalAmount;
+            document.getElementById('checkoutTotal').textContent = totalAmount;
+            document.getElementById('cartCount').textContent = cart.length;
+        }
+
+        function removeFromCart(itemName) {
+            cart = cart.filter(item => item.name !== itemName);
+            totalAmount -= cart.find(item => item.name === itemName).price;
+            updateCart();
+        }
+
+        function checkout() {
+            document.getElementById('checkoutPopup').style.display = 'block';
+        }
+
+        function togglePaymentFields() {
+            const paymentMethod = document.getElementById('paymentMethod').value;
+            if (paymentMethod === 'mpesa') {
+                document.getElementById('mpesaSection').style.display = 'block';
+                document.getElementById('cardSection').style.display = 'none';
+            } else {
+                document.getElementById('mpesaSection').style.display = 'none';
+                document.getElementById('cardSection').style.display = 'block';
+            }
+        }
+
+        function completeCheckout() {
+            const paymentMethod = document.getElementById('paymentMethod').value;
+            if (paymentMethod === 'mpesa') {
+                const mpesaNumber = document.getElementById('mpesaNumber').value;
+                alert('Payment successful via M-Pesa to ' + mpesaNumber);
+            } else {
+                const cardNumber = document.getElementById('cardNumber').value;
+                alert('Payment successful via card with number ' + cardNumber);
+            }
+            document.getElementById('checkoutPopup').style.display = 'none';
+            cart = [];
+            totalAmount = 0;
+            updateCart();
+        }
+
+        function toggleSocialMedia() {
+            const socialMediaDiv = document.getElementById('socialMediaIcons');
+            if (socialMediaDiv.style.display === 'block') {
+                socialMediaDiv.style.display = 'none';
+            } else {
+                socialMediaDiv.style.display = 'block';
+            }
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
